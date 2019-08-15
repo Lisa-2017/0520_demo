@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    function getType(data) {
+        let result = Object.prototype.toString.call(data);
+        return result.slice(8,-1);
+    }
+
+    function deepClone(target){
+        let result = null;
+        if(getType(target)==='Array'){
+            result = [];
+        }else if(getType(target) === 'Object'){
+            result ={}
+        }else{
+            result = target
+        }
+       for (let key in target){
+           let item = target[key]
+           if(getType(item)==='Array' || getType(item) ==='Object'){
+               result[key] = deepClone(item)
+           }else{
+               result[key] = item
+           }
+       }
+       return result
+    }
+
+
+    let obj = {
+        name:'kobe',
+        age:18,
+        sex:{
+            options1:'男',
+            options2:'女'
+        }
+    }
+
+    let obj2 = deepClone(obj)
+
+    console.log(obj)
+    obj.name = 'wade'
+    obj.sex.options1 = '哈哈'
+    console.log(obj2)
+    console.log(obj)
+
+</script>
+</body>
+</html>

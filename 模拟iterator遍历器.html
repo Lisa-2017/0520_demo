@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟遍历器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    function mockiterator(){
+        let index = 0;
+        let that = this;
+        if( that instanceof Array){
+            return{
+                next:function () {
+                    return{
+                        value: that[index++],
+                        done:index-1 < that.length ? false :true
+                    }
+                }
+            }
+        }else{
+            let keys = Object.keys(that);
+            return{
+                next:function () {
+                    return{
+                        value:that[keys[index++]],
+                        done:index-1<keys.length ? false :true
+                    }
+                }
+            }
+        }
+    }
+    Object.prototype[Symbol.iterator] = mockiterator;
+    Array.prototype[Symbol.iterator] = mockiterator;
+
+    let obj = {m:2,n:3,k:5};
+    console.log(...obj);
+
+    for ( let item of obj) {
+        console.log(item);
+    }
+    let arr = [1,2,3,4]
+    console.log(...arr);
+
+
+</script>
+
+</body>
+</html>

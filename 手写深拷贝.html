@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+
+<script>
+
+    //定义精准检测对象类型的函数getType()
+    function getType(data){
+        let result = Object.prototype.toString.call(data);
+        return result.slice(8,-1)
+    }
+    // 定义深拷贝函数
+    function deepClone(target){
+        let result = null
+        if(getType(target) === 'Array'){
+            result = []
+        }else if(getType(target)==='Object'){
+            result = {}
+        }else{
+            result = target
+        }
+        for( let key in target ){ // 数组是一种特殊的对象，所以素组的索引也是特殊的属性名key
+            let item = target[key] // 获取对象的属性值 或 数组元素
+            if( getType(item)==='Object' || getType(item)==='Array' ){
+                result[key] = deepClone(item);
+            }else{
+                result[key] = item
+            }
+        }
+        return result
+    }
+
+    let person ={
+        name:'kobe',
+        age:18,
+        sex:{
+            options1:'男',
+            options2:'女'
+        },
+        setName:function (name) {
+            this.name = name
+        }
+    }
+
+    let person2 = deepClone(person);
+    person.sex.options1 = '不男不女';
+    person.name = 'wade';
+    console.log(person);
+    console.log(person2)
+
+
+</script>
+
+</body>
+</html>

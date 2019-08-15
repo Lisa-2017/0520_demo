@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //案例练习，需求：有4个异步任务，等第一个成功的执行了，之后再发送第二个，以此类推
+
+    //借助Promise解决回调地狱
+    function sendAjax(id) {
+        return new Promise(function (resolve,reject) {
+            setTimeout(function () {
+                resolve(`我是第${id}次请求，我的数据回来了`)
+            },1000)
+        })
+    }
+
+
+    //虽然解决了回调地狱，但是依然很不友好，依然在开发中很少使用
+    /*let myPromise = sendAjax(1)
+        myPromise
+      .then(function (data) {
+        console.log(data)
+        return sendAjax(2)
+      })
+      .then(function (data) {
+        console.log(data)
+        return sendAjax(3)
+      })
+      .then(function (data) {
+        console.log(data)
+        return sendAjax(4)
+      })
+      .then(function (data) {
+        console.log(data)
+      })*/
+
+    // (async ()=> {
+    //   console.log(await sendAjax(1)); //await第一等待，直到获取了成功时候的数据
+    //   console.log(await sendAjax(2));
+    //   console.log(await sendAjax(3));
+    //   console.log(await sendAjax(4));
+    // })()
+
+    // async function demo() {
+    //   let result = await sendAjax(1)
+    //   console.log(result);
+    // }
+    // demo()
+
+
+    //async的“副作用”:如果一个函数被async声明了，那么无论返回值是多少，一定在外侧“包裹”了一层Promise对象，且状态为成功
+    async function test() {
+        await sendAjax(100)
+    }
+
+    (async ()=>{
+      let result = test()
+      let result2 = await result
+        console.log(result)
+        console.log(result2)
+    })()
+
+</script>
+
+</body>
+</html>

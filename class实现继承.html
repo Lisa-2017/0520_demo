@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>类中实现继承</title>
+</head>
+<body>
+
+<script>
+class Person{
+    constructor(name,age,sex){
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+    setName(name){
+        this.name = name 
+    }
+    speak(){
+        console.log(`我是${this.name},今年${this.age}岁`)
+    }
+}
+
+class Student extends Person{
+   constructor(name,age,sex,school,grade){
+       super(name,age,sex);
+       this.school = school;
+       this.grade = grade ;
+   }
+   speak(){
+       console.log(`我是${this.name},今年${this.age}岁,就读于${this.school}学校，成绩${this.grade}`)
+   }
+   sport(){
+       console.log('打篮球')
+   }
+}
+
+
+let p = new Person('kobe',18,'男')
+p.setName('wade')
+console.log(p);
+p.speak()
+
+let s = new Student('ming',20,'女','华东理工','优秀')
+console.log(s);
+s.setName('Lisa')
+s.speak()
+
+
+</script>
+
+</body>
+</html>

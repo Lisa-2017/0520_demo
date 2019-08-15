@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ZH-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+</div>
+
+<script>
+    //Generator函数,又称可暂停函数，又称惰性求值函数
+    function * demo(a,b) {
+        console.log('函数开始执行了')
+        let result
+        yield console.log('运算即将开始')
+        yield result = a+b
+        yield console.log('运算已经结束')
+        yield console.log(result)
+    }
+
+    let point = demo(1,3)
+    console.log(point.next());
+    console.log(point.next());
+    console.log(point.next());
+    console.log(point.next());
+    console.log(point.next());
+
+</script>
+
+</body>
+</html>
